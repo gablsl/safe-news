@@ -37,7 +37,7 @@ public class SourceService {
 
     @Transactional
     public List<SourceResponseDTO> getEnabledSources() {
-        return sourceRepository.findEnabledSources().stream()
+        return sourceRepository.findActiveSources().stream()
                 .map(SourceResponseDTO::new)
                 .toList();
     }

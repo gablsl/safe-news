@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface SourceRepository extends JpaRepository<Source, UUID> {
-    @Query("SELECT s FROM Source s WHERE s.status = ENABLED")
-    List<Source> findEnabledSources();
+    @Query("SELECT s FROM Source s WHERE s.active = true")
+    List<Source> findActiveSources();
 }

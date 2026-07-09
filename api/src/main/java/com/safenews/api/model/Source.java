@@ -37,9 +37,8 @@ public class Source {
     @Enumerated(EnumType.STRING)
     private Language language;
 
-    @Column(nullable = false, length = 50)
-    @Enumerated(EnumType.STRING)
-    private Status status;
+    @Column(nullable = false)
+    private boolean active = true;
 
     @Column(columnDefinition = "TEXT")
     private String description;
@@ -64,7 +63,7 @@ public class Source {
     public Source(SourceRequestDTO dto) {
         this.name = dto.name();
         this.language = dto.language();
-        this.status = dto.status();
+        this.active = dto.active();
         this.description = dto.description();
     }
 }

@@ -11,6 +11,9 @@ public record SourceRequestDTO(
         @NotNull(message = "Language is required")
         Language language,
 
+        @NotBlank(message = "URL is required")
+        String url,
+
         boolean active,
 
         String description

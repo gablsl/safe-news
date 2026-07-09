@@ -37,6 +37,9 @@ public class Source {
     @Enumerated(EnumType.STRING)
     private Language language;
 
+    @Column(nullable = false, unique = true)
+    private String url;
+
     @Column(nullable = false)
     private boolean active = true;
 
@@ -63,6 +66,7 @@ public class Source {
     public Source(SourceRequestDTO dto) {
         this.name = dto.name();
         this.language = dto.language();
+        this.url = dto.url();
         this.active = dto.active();
         this.description = dto.description();
     }

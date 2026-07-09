@@ -1,0 +1,28 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: safenews
+      POSTGRES_USER: safenews
+      POSTGRES_PASSWORD: safenews
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U safenews -d safenews']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/safenews
+      SPRING_DATASOURCE_USERNAME: safenews
+      SPRING_DATASOURCE_PASSWORD: safenews
+    depends_on:
+      postgres:
+        condition: service_healthy

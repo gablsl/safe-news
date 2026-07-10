@@ -26,7 +26,7 @@ public class SourceService {
     public List<SourceResponseDTO> getAll() {
         return sourceRepository.findAll().stream()
                 .map(SourceResponseDTO::new)
-                .toList();
+                .toList();  
     }
 
     @Transactional

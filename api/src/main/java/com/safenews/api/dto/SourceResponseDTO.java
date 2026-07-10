@@ -3,7 +3,8 @@ package com.safenews.api.dto;
 import com.safenews.api.model.Language;
 import com.safenews.api.model.Source;
 
-import java.time.LocalDateTime;
+
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 public record SourceResponseDTO(
@@ -13,8 +14,8 @@ public record SourceResponseDTO(
         String url,
         boolean active,
         String description,
-        LocalDateTime createdAt,
-        LocalDateTime updatedAt
+        OffsetDateTime createdAt,
+        OffsetDateTime updatedAt
 ) {
     public SourceResponseDTO(Source source) {
         this(

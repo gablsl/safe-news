@@ -2,7 +2,6 @@ package com.safenews.api.dto;
 
 import com.safenews.api.model.Article;
 import com.safenews.api.model.Language;
-import com.safenews.api.model.Source;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;

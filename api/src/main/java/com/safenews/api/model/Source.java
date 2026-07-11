@@ -1,5 +1,6 @@
 package com.safenews.api.model;
 
+import com.safenews.api.dto.SourcePatchDTO;
 import com.safenews.api.dto.SourceRequestDTO;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -69,5 +70,23 @@ public class Source {
         this.url = dto.url();
         this.active = dto.active();
         this.description = dto.description();
+    }
+
+    public void patchFromDTO(SourcePatchDTO dto) {
+        if (dto.name().isPresent()) {
+            this.name = dto.name().orElse(null);
+        }
+        if (dto.language().isPresent()) {
+            this.language = dto.language().orElse(null);
+        }
+        if (dto.url().isPresent()) {
+            this.url = dto.url().orElse(null);
+        }
+        if (dto.description().isPresent()) {
+            this.description = dto.description().orElse(null);
+        }
+        if (dto.active().isPresent()) {
+            this.active = dto.active().orElse(true);
+        }
     }
 }

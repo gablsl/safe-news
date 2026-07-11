@@ -1,21 +1,19 @@
 package com.safenews.api.controller;
 
+import com.safenews.api.dto.PagedResponseDTO;
+import com.safenews.api.dto.SourcePatchDTO;
 import com.safenews.api.dto.SourceRequestDTO;
 import com.safenews.api.dto.SourceResponseDTO;
 import com.safenews.api.service.SourceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -30,20 +28,25 @@ public class SourceController {
     }
 
     @GetMapping
-    public ResponseEntity<List<SourceResponseDTO>> getAll() {
-        return ResponseEntity.ok(sourceService.getAll());
-    }
-
-    @GetMapping("/active")
-    public ResponseEntity<List<SourceResponseDTO>> getEnabledSources() {
-        return ResponseEntity.ok(sourceService.getEnabledSources());
+    public ResponseEntity<PagedResponseDTO<SourceResponseDTO>> getSources(
+            @RequestParam(required = false) Boolean active,
+            @PageableDefault(size = 15, sort = "name") Pageable pageable
+    ) {
+        Page<SourceResponseDTO> response = sourceService.getAll(active, pageable);
+        return ResponseEntity.ok(new PagedResponseDTO<>(response));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<SourceResponseDTO> getById(@PathVariable UUID id) {
-        return sourceService.getById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(sourceService.getById(id));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<SourceResponseDTO> update(
+            @PathVariable UUID id,
+            @RequestBody SourcePatchDTO dto
+    ) {
+        return ResponseEntity.ok(sourceService.update(id, dto));
     }
 
     @DeleteMapping("/{id}")

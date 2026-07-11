@@ -7,5 +7,5 @@ CREATE TABLE article (
      created_at TIMESTAMPTZ DEFAULT NOW(),
      language VARCHAR(20) NOT NULL,
      source_id UUID NOT NULL,
-     CONSTRAINT fk_article_source FOREIGN KEY (source_id) REFERENCES sources (id)
+     CONSTRAINT fk_article_source FOREIGN KEY (source_id) REFERENCES sources (id) ON DELETE CASCADE
 );

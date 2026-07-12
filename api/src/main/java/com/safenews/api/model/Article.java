@@ -13,6 +13,7 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
+@Table(name = "articles")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

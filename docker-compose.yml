@@ -23,6 +23,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/safenews
       SPRING_DATASOURCE_USERNAME: safenews
       SPRING_DATASOURCE_PASSWORD: safenews
+      JWT_SECRET: ${JWT_SECRET}
     depends_on:
       postgres:
         condition: service_healthy
